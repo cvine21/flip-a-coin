@@ -1,0 +1,64 @@
+.coinScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2.5rem 1rem;
+  background-color: var(--app-bg-color);
+  color: var(--app-text-color);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 24rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: var(--app-surface-color);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 14%);
+}
+
+.presentation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.result {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.flipButton {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--app-button-color);
+  border-radius: 0.75rem;
+  background-color: var(--app-button-color);
+  color: var(--app-button-text-color);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--app-button-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.95;
+  }
+}

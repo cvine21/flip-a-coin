@@ -1,0 +1,136 @@
+.coin {
+  width: 11rem;
+  height: 11rem;
+  position: relative;
+  border: 0;
+  border-radius: 9999px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  perspective: 1000px;
+  transition: opacity 180ms ease;
+}
+
+.coin:focus-visible {
+  outline: 2px solid var(--app-button-color);
+  outline-offset: 4px;
+}
+
+.coin:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.coin__layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.coin__layer--graphic {
+  filter: drop-shadow(0 12px 24px rgb(0 0 0 / 16%));
+}
+
+.coin__layer--fallback {
+  box-shadow:
+    inset 0 0 0 5px var(--app-coin-rim-outer-color),
+    inset 0 0 0 10px var(--app-coin-rim-middle-color),
+    inset 0 0 0 18px var(--app-coin-rim-inner-color);
+}
+
+.coin__rotor {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+}
+
+.coin[data-visible-side="Heads"] .coin__rotor {
+  transform: rotateY(0deg);
+}
+
+.coin[data-visible-side="Tails"] .coin__rotor {
+  transform: rotateY(180deg);
+}
+
+.coin__rotor--animating {
+  animation: coin-spin var(--coin-flip-duration-ms, 3000ms) linear forwards;
+}
+
+.coin__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  color: var(--app-coin-face-text-color);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      var(--app-coin-face-highlight-color) 0%,
+      rgb(255 244 196 / 0%) 45%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      var(--app-coin-face-shadow-color) 0%,
+      rgb(156 109 0 / 0%) 45%
+    ),
+    linear-gradient(
+      145deg,
+      var(--app-coin-face-start-color) 0%,
+      var(--app-coin-face-mid-color) 32%,
+      var(--app-coin-face-deep-color) 62%,
+      var(--app-coin-face-end-color) 100%
+    );
+}
+
+.coin__face--graphic {
+  background: transparent;
+}
+
+.coin__face::after {
+  content: "";
+  position: absolute;
+  inset: 13%;
+  border: 2px solid var(--app-coin-face-border-color);
+  border-radius: inherit;
+}
+
+.coin__face--tails {
+  transform: rotateY(180deg);
+}
+
+.coin__face--graphic::after {
+  content: none;
+}
+
+.coin__asset-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes coin-spin {
+  from {
+    transform: rotateX(0deg);
+  }
+
+  to {
+    transform: rotateX(var(--coin-spin-final-angle, 1620deg));
+  }
+}
