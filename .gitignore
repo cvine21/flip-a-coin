@@ -2,3 +2,4 @@ docs/implementation/
 node_modules/
 dist/
 agents/
+.DS_Store

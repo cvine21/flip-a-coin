@@ -5,7 +5,7 @@ import {
   type CoinFlipTriggerSource,
 } from "../../features/coin-flip";
 import { APP_TEST_IDS } from "../../shared/testing/selectors";
-import { Coin } from "../Coin/Coin";
+import { Coin } from "../Coin/ui/Coin";
 import { useCoinAssetState } from "../Coin/useCoinAssetState";
 import styles from "./CoinScreen.module.css";
 

@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import type { CoinDisplayResult } from "../../features/coin-flip";
 import headsAssetUrl from "../../shared/assets/coin/heads.png";
 import tailsAssetUrl from "../../shared/assets/coin/tails.png";
-import type { CoinAssetState, CoinRenderMode } from "./Coin";
+import type { CoinAssetState, CoinRenderMode } from "./ui/Coin";
 
 export type CoinAssetUrls = Record<CoinDisplayResult, string>;
 

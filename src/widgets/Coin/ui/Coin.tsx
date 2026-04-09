@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
-import type { CoinDisplayResult } from "../../features/coin-flip";
-import { APP_TEST_IDS } from "../../shared/testing/selectors";
+import type { CoinDisplayResult } from "../../../features/coin-flip";
+import { APP_TEST_IDS } from "../../../shared/testing/selectors";
+import type { CoinAssetUrls } from "../useCoinAssetState";
 import styles from "./Coin.module.css";
-import type { CoinAssetUrls } from "./useCoinAssetState";
 
 export type CoinRenderMode = "graphic" | "fallback";
 export type CoinAssetState = "ready" | "loading" | "unavailable";
