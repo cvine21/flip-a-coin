@@ -25,9 +25,6 @@ describe("CoinScreen", () => {
     const screenNode = screen.getByTestId(APP_TEST_IDS.coinScreen);
     const presentationNode = screen.getByTestId(APP_TEST_IDS.coinPresentation);
     const coinNode = screen.getByTestId(APP_TEST_IDS.coin);
-    const fallbackLayerNode = screen.getByTestId(
-      APP_TEST_IDS.coinFallbackLayer,
-    );
     const graphicLayerNode = screen.getByTestId(APP_TEST_IDS.coinGraphicLayer);
     const assetStateNode = screen.getByTestId(APP_TEST_IDS.coinAssetState);
     const resultTextNode = screen.getByTestId(APP_TEST_IDS.coinResultText);
@@ -40,12 +37,8 @@ describe("CoinScreen", () => {
     expect(coinNode).toHaveAttribute("data-render-mode", "fallback");
     expect(coinNode).toHaveAttribute("data-asset-state", "loading");
     expect(coinNode).toHaveAttribute("data-animation-target-side", "Heads");
-    expect(coinNode.getAttribute("style")).toContain(
-      `--coin-flip-duration-ms: ${FLIP_DURATION_MS}ms`,
-    );
     expect(presentationNode).toHaveAttribute("data-render-mode", "fallback");
     expect(presentationNode).toHaveAttribute("data-asset-state", "loading");
-    expect(fallbackLayerNode).not.toHaveAttribute("hidden");
     expect(graphicLayerNode).toHaveAttribute("hidden");
     expect(assetStateNode).toHaveTextContent("loading");
     expect(resultTextNode).toHaveAttribute("data-result-side", "Heads");
@@ -121,9 +114,6 @@ describe("CoinScreen", () => {
 
     const coinNode = screen.getByTestId(APP_TEST_IDS.coin);
     const presentationNode = screen.getByTestId(APP_TEST_IDS.coinPresentation);
-    const fallbackLayerNode = screen.getByTestId(
-      APP_TEST_IDS.coinFallbackLayer,
-    );
     const graphicLayerNode = screen.getByTestId(APP_TEST_IDS.coinGraphicLayer);
     const assetStateNode = screen.getByTestId(APP_TEST_IDS.coinAssetState);
     const headsImage = graphicLayerNode.querySelector('img[alt="Heads"]');
@@ -136,7 +126,6 @@ describe("CoinScreen", () => {
     expect(coinNode).toHaveAttribute("data-asset-state", "unavailable");
     expect(presentationNode).toHaveAttribute("data-render-mode", "fallback");
     expect(presentationNode).toHaveAttribute("data-asset-state", "unavailable");
-    expect(fallbackLayerNode).not.toHaveAttribute("hidden");
     expect(graphicLayerNode).toHaveAttribute("hidden");
     expect(assetStateNode).toHaveTextContent("unavailable");
     expect(coinAssetLoadErrorSpy).toHaveBeenCalledWith(

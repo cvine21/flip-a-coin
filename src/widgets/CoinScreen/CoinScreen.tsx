@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
-  FLIP_DURATION_MS,
   formatFlipResult,
   useCoinFlip,
   type CoinFlipTriggerSource,
 } from "../../features/coin-flip";
 import { APP_TEST_IDS } from "../../shared/testing/selectors";
-import { Coin } from "../coin-screen/ui/Coin";
-import { useCoinAssetState } from "../coin-screen/ui/useCoinAssetState";
+import { Coin } from "../Coin/Coin";
+import { useCoinAssetState } from "../Coin/useCoinAssetState";
 import styles from "./CoinScreen.module.css";
 
 /**
@@ -25,7 +24,6 @@ export function CoinScreen(): JSX.Element {
   } = useCoinAssetState();
   const wasLockedRef = useRef(false);
   const isAnimating = status === "flipping";
-  const animationDurationMs = FLIP_DURATION_MS;
   const animationTargetResult = isAnimating
     ? (plannedResult ?? visibleResult)
     : visibleResult;
@@ -64,7 +62,6 @@ export function CoinScreen(): JSX.Element {
             animationTargetSide={animationTargetSide}
             isAnimating={isAnimating}
             isLocked={isLocked}
-            animationDurationMs={animationDurationMs}
             renderMode={renderMode}
             assetState={assetState}
             assetUrls={assetUrls}

@@ -9,19 +9,19 @@
   background: transparent;
   perspective: 1000px;
   transition: opacity 180ms ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--app-button-color);
+    outline-offset: 4px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
 }
 
-.coin:focus-visible {
-  outline: 2px solid var(--app-button-color);
-  outline-offset: 4px;
-}
-
-.coin:disabled {
-  cursor: not-allowed;
-  opacity: 0.8;
-}
-
-.coin__layer {
+.coinLayer {
   position: absolute;
   inset: 0;
   display: block;
@@ -30,18 +30,11 @@
   border-radius: inherit;
 }
 
-.coin__layer--graphic {
+.coinLayerGraphic {
   filter: drop-shadow(0 12px 24px rgb(0 0 0 / 16%));
 }
 
-.coin__layer--fallback {
-  box-shadow:
-    inset 0 0 0 5px var(--app-coin-rim-outer-color),
-    inset 0 0 0 10px var(--app-coin-rim-middle-color),
-    inset 0 0 0 18px var(--app-coin-rim-inner-color);
-}
-
-.coin__rotor {
+.coinRotor {
   display: block;
   position: relative;
   width: 100%;
@@ -50,19 +43,19 @@
   transform-style: preserve-3d;
 }
 
-.coin[data-visible-side="Heads"] .coin__rotor {
+.coin[data-visible-side="Heads"] .coinRotor {
   transform: rotateY(0deg);
 }
 
-.coin[data-visible-side="Tails"] .coin__rotor {
+.coin[data-visible-side="Tails"] .coinRotor {
   transform: rotateY(180deg);
 }
 
-.coin__rotor--animating {
-  animation: coin-spin var(--coin-flip-duration-ms, 3000ms) linear forwards;
+.coinRotorAnimating {
+  animation: coin-spin 3000ms linear forwards;
 }
 
-.coin__face {
+.coinFace {
   position: absolute;
   inset: 0;
   display: flex;
@@ -94,29 +87,29 @@
       var(--app-coin-face-deep-color) 62%,
       var(--app-coin-face-end-color) 100%
     );
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 13%;
+    border: 2px solid var(--app-coin-face-border-color);
+    border-radius: inherit;
+  }
 }
 
-.coin__face--graphic {
+.coinFaceGraphic {
   background: transparent;
+
+  &::after {
+    content: none;
+  }
 }
 
-.coin__face::after {
-  content: "";
-  position: absolute;
-  inset: 13%;
-  border: 2px solid var(--app-coin-face-border-color);
-  border-radius: inherit;
-}
-
-.coin__face--tails {
+.coinFaceTails {
   transform: rotateY(180deg);
 }
 
-.coin__face--graphic::after {
-  content: none;
-}
-
-.coin__asset-image {
+.coinAssetImage {
   display: block;
   width: 100%;
   height: 100%;

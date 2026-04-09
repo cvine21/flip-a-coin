@@ -7,12 +7,12 @@ async function forceFallbackCoinMode(page: Page): Promise<void> {
 }
 
 test("coin tap follows the same flip flow and locks controls during animation", async ({
-  page
+  page,
 }) => {
   await page.addInitScript(() => {
     Object.defineProperty(Math, "random", {
       configurable: true,
-      value: () => 0.9
+      value: () => 0.9,
     });
   });
 
@@ -25,7 +25,6 @@ test("coin tap follows the same flip flow and locks controls during animation", 
   await expect(coin).toHaveAttribute("data-visible-side", "Heads");
   await expect(coin).toHaveAttribute("data-render-mode", /fallback|graphic/);
   await expect(coin).toHaveAttribute("data-asset-state", /loading|ready/);
-  await expect(coin).toHaveAttribute("style", /--coin-flip-duration-ms:\s*3000ms/);
   await expect(resultText).toHaveAttribute("data-result-side", "Heads");
   await expect(resultText).toHaveText("Heads");
 
@@ -36,27 +35,27 @@ test("coin tap follows the same flip flow and locks controls during animation", 
   await expect(coin).toHaveAttribute("data-animating", "true");
 
   await expect(coin).toHaveAttribute("data-visible-side", "Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(coin).toHaveAttribute("data-animating", "false", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveText("Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveAttribute("data-result-side", "Tails");
   await expect(flipButton).toBeEnabled({
-    timeout: 4500
+    timeout: 4500,
   });
 });
 
 test("button and coin triggers share lock semantics and allow restart after settle", async ({
-  page
+  page,
 }) => {
   await page.addInitScript(() => {
     Object.defineProperty(Math, "random", {
       configurable: true,
-      value: () => 0.9
+      value: () => 0.9,
     });
   });
 
@@ -73,20 +72,20 @@ test("button and coin triggers share lock semantics and allow restart after sett
   await expect(coin).toBeDisabled();
 
   await expect(coin).toHaveAttribute("data-visible-side", "Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveText("Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveAttribute("data-result-side", "Tails");
   await expect(flipButton).toBeEnabled({
-    timeout: 4500
+    timeout: 4500,
   });
 
   await page.evaluate(() => {
     Object.defineProperty(Math, "random", {
       configurable: true,
-      value: () => 0.1
+      value: () => 0.1,
     });
   });
 
@@ -95,23 +94,25 @@ test("button and coin triggers share lock semantics and allow restart after sett
   await expect(coin).toBeDisabled();
 
   await expect(coin).toHaveAttribute("data-visible-side", "Heads", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveText("Heads", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveAttribute("data-result-side", "Heads");
   await expect(flipButton).toBeEnabled({
-    timeout: 4500
+    timeout: 4500,
   });
 });
 
-test("fallback mode keeps lock-state and settles to expected side", async ({ page }) => {
+test("fallback mode keeps lock-state and settles to expected side", async ({
+  page,
+}) => {
   await forceFallbackCoinMode(page);
   await page.addInitScript(() => {
     Object.defineProperty(Math, "random", {
       configurable: true,
-      value: () => 0.9
+      value: () => 0.9,
     });
   });
   await page.goto("/");
@@ -129,12 +130,12 @@ test("fallback mode keeps lock-state and settles to expected side", async ({ pag
   await expect(coin).toBeDisabled();
 
   await expect(coin).toHaveAttribute("data-visible-side", "Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(resultText).toHaveAttribute("data-result-side", "Tails", {
-    timeout: 4500
+    timeout: 4500,
   });
   await expect(flipButton).toBeEnabled({
-    timeout: 4500
+    timeout: 4500,
   });
 });

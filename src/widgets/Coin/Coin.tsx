@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
-import type { CoinDisplayResult } from "../../../features/coin-flip";
-import { APP_TEST_IDS } from "../../../shared/testing/selectors";
-import "./coin.css";
+import type { CoinDisplayResult } from "../../features/coin-flip";
+import { APP_TEST_IDS } from "../../shared/testing/selectors";
+import styles from "./Coin.module.css";
 import type { CoinAssetUrls } from "./useCoinAssetState";
 
 export type CoinRenderMode = "graphic" | "fallback";
@@ -12,7 +12,6 @@ interface CoinProps {
   animationTargetSide: CoinDisplayResult;
   isAnimating: boolean;
   isLocked: boolean;
-  animationDurationMs: number;
   renderMode: CoinRenderMode;
   assetState: CoinAssetState;
   assetUrls: CoinAssetUrls;
@@ -29,20 +28,19 @@ export function Coin({
   animationTargetSide,
   isAnimating,
   isLocked,
-  animationDurationMs,
   renderMode,
   assetState,
   assetUrls,
   onAssetLoad,
   onAssetError,
-  onFlip
+  onFlip,
 }: CoinProps): JSX.Element {
   const isFallbackMode = renderMode === "fallback";
 
   return (
     <button
       type="button"
-      className="coin"
+      className={styles.coin}
       data-testid={APP_TEST_IDS.coin}
       data-visible-side={visibleSide}
       data-animating={isAnimating ? "true" : "false"}
@@ -54,24 +52,26 @@ export function Coin({
       aria-label={`Coin showing ${visibleSide}`}
       style={
         {
-          "--coin-flip-duration-ms": `${animationDurationMs}ms`,
-          "--coin-spin-final-angle": animationTargetSide === "Heads" ? "1800deg" : "1620deg"
+          "--coin-spin-final-angle":
+            animationTargetSide === "Heads" ? "1800deg" : "1620deg",
         } as CSSProperties
       }
     >
       <span
-        className="coin__layer coin__layer--graphic"
+        className={`${styles.coinLayer} ${styles.coinLayerGraphic}`}
         data-testid={APP_TEST_IDS.coinGraphicLayer}
         aria-hidden="true"
         hidden={isFallbackMode}
       >
         <span
-          className={`coin__rotor ${isAnimating ? "coin__rotor--animating" : ""}`}
+          className={`${styles.coinRotor} ${isAnimating ? styles.coinRotorAnimating : ""}`}
           aria-hidden="true"
         >
-          <span className="coin__face coin__face--heads coin__face--graphic">
+          <span
+            className={`${styles.coinFace} ${styles.coinFaceHeads} ${styles.coinFaceGraphic}`}
+          >
             <img
-              className="coin__asset-image"
+              className={styles.coinAssetImage}
               src={assetUrls.Heads}
               alt="Heads"
               draggable={false}
@@ -79,9 +79,11 @@ export function Coin({
               onError={() => onAssetError("Heads")}
             />
           </span>
-          <span className="coin__face coin__face--tails coin__face--graphic">
+          <span
+            className={`${styles.coinFace} ${styles.coinFaceTails} ${styles.coinFaceGraphic}`}
+          >
             <img
-              className="coin__asset-image"
+              className={styles.coinAssetImage}
               src={assetUrls.Tails}
               alt="Tails"
               draggable={false}
@@ -89,20 +91,6 @@ export function Coin({
               onError={() => onAssetError("Tails")}
             />
           </span>
-        </span>
-      </span>
-      <span
-        className="coin__layer coin__layer--fallback"
-        data-testid={APP_TEST_IDS.coinFallbackLayer}
-        aria-hidden="true"
-        hidden={!isFallbackMode}
-      >
-        <span
-          className={`coin__rotor ${isAnimating ? "coin__rotor--animating" : ""}`}
-          aria-hidden="true"
-        >
-          <span className="coin__face coin__face--heads">Heads</span>
-          <span className="coin__face coin__face--tails">Tails</span>
         </span>
       </span>
     </button>
